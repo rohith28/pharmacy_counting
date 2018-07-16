@@ -12,7 +12,7 @@ public class PharmacyCounting {
 
         List<drugDetails> listOfPrint = new ArrayList<>();
 
-            String path = "input/input.txt";
+            String path = args[0];
 
             listOfPrint = readDataFromFile(path, listOfPrint);
 
@@ -21,7 +21,7 @@ public class PharmacyCounting {
             int count = 0;
             //Path file = Paths.get("output/top-cost-drug.txt");
 
-            FileWriter fileWriter = new FileWriter("output/top_cost_drug.txt");
+            FileWriter fileWriter = new FileWriter(args[1]);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.print("drug_name,num_prescriber,total_cost\n");
 
@@ -51,13 +51,9 @@ public class PharmacyCounting {
 
             sc = new Scanner(inputStream, "UTF-8");
             int header = 0;
-
+            sc.nextLine();
             while (sc.hasNextLine()) {
 
-                if (header == 0) {
-                    sc.nextLine();
-                    header = 1;
-                } else {
                     String line = sc.nextLine();
                     String[] arr = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                     arr[3] = arr[3].replace("\"", "");
@@ -95,7 +91,7 @@ public class PharmacyCounting {
                             System.out.println(ne.getMessage());
                         }
                     }
-                }
+
             }
         } catch (FileNotFoundException fe) {
             System.out.println("File not found. Please enter correct path.");
