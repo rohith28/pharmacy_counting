@@ -12,35 +12,38 @@ public class PharmacyCounting {
 
         List<drugDetails> listOfPrint = new ArrayList<>();
 
-            String path = args[0];
+        String path = args[0];
 
-            listOfPrint = readDataFromFile(path, listOfPrint);
+        listOfPrint = readDataFromFile(path, listOfPrint);
 
-            Collections.sort(listOfPrint, new SortBycost());
+        Collections.sort(listOfPrint, new SortBycost());
 
-            int count = 0;
-            //Path file = Paths.get("output/top-cost-drug.txt");
-
-            FileWriter fileWriter = new FileWriter(args[1]);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            printWriter.print("drug_name,num_prescriber,total_cost\n");
-
-
-            for (drugDetails tempList : listOfPrint) {
-                count++;
-                String str = tempList.getdName() + "," + tempList.getNum() + "," + tempList.getCost() + "\n";
-                printWriter.print(str);
-
-            }
-            System.out.print(count);
-            printWriter.close();
-            // note that Scanner suppresses exceptions
+        writeToFile(args[1],listOfPrint);
 
 
     }
 
+    public static void writeToFile(String path,List<drugDetails> listOfPrint){
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.println("drug_name,num_prescriber,total_cost");
+
+
+            for (drugDetails tempList : listOfPrint) {
+                String str = tempList.getdName() + "," + tempList.getNum() + "," + (int) tempList.getCost() + "\n";
+                printWriter.println(str);
+
+            }
+            printWriter.close();
+        }catch (IOException ie){
+            System.out.println("Error in File writer" + ie.getMessage());
+        }
+    }
+
 
     public static List<drugDetails> readDataFromFile(String path, List<drugDetails> listOfPrint) throws IOException{
+
         FileInputStream inputStream = null;
         Scanner sc = null;
         Set<String> names = new HashSet<>();
@@ -50,7 +53,6 @@ public class PharmacyCounting {
             inputStream = new FileInputStream(path);
 
             sc = new Scanner(inputStream, "UTF-8");
-            int header = 0;
             sc.nextLine();
             while (sc.hasNextLine()) {
 
