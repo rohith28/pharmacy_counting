@@ -10,28 +10,33 @@ public class PharmacyCounting {
 
     public static void main(String[] args) throws IOException {
 
-        List<drugDetails> listOfPrint = new ArrayList<>();
+        List<drugDetails> listOfDrugDet = new ArrayList<>();
 
         String path = args[0];
 
-        listOfPrint = readDataFromFile(path, listOfPrint);
+        if(checkFileExist(path)){
+            listOfDrugDet = readDataFromFile(path, listOfDrugDet);
+            Collections.sort(listOfDrugDet, new SortBycost());
 
-        Collections.sort(listOfPrint, new SortBycost());
-
-        writeToFile(args[1],listOfPrint);
-
-
+            writeToFile(args[1],listOfDrugDet);
+        }else{
+            throw new FileNotFoundException("File not found in the given file path.");
+        }
     }
 
-    public static void writeToFile(String path,List<drugDetails> listOfPrint){
+    public static boolean checkFileExist(String path){
+        boolean res = new File(path).exists();
+        return res;
+    }
+    public static void writeToFile(String path,List<drugDetails> listOfDrugDet){
         try {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.println("drug_name,num_prescriber,total_cost");
 
 
-            for (drugDetails tempList : listOfPrint) {
-                String str = tempList.getdName() + "," + tempList.getNum() + "," + (int) tempList.getCost() + "\n";
+            for (drugDetails tempList : listOfDrugDet) {
+                String str = tempList.getdName() + "," + tempList.getNum() + "," + (int) tempList.getCost();
                 printWriter.println(str);
 
             }
@@ -42,7 +47,7 @@ public class PharmacyCounting {
     }
 
 
-    public static List<drugDetails> readDataFromFile(String path, List<drugDetails> listOfPrint) throws IOException{
+    public static List<drugDetails> readDataFromFile(String path, List<drugDetails> listOfDrugDet) throws IOException{
 
         FileInputStream inputStream = null;
         Scanner sc = null;
@@ -58,20 +63,28 @@ public class PharmacyCounting {
 
                     String line = sc.nextLine();
                     String[] arr = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                    arr[3] = arr[3].replace("\"", "");
+                 //   System.out.println(arr[3]);
+                   // arr[3] = arr[3].replace("\"", "");
                     drugDetails reomvePrint = null;
                     if (names.contains(arr[3])) {
 
                         drugDetails updatePrint = new drugDetails(arr[3], 0, 0);
-                        Iterator<drugDetails> itr = listOfPrint.iterator();
-                        while (itr.hasNext()) {
+                        Iterator<drugDetails> itr = listOfDrugDet.iterator();
+                        /*while (itr.hasNext()) {
                             drugDetails temp = itr.next();
                             if (temp.getdName().equals(arr[3])) {
                                 reomvePrint = temp;
                             }
+                        }*/
+
+                        for (drugDetails temp:listOfDrugDet) {
+                            if (temp.getdName().equals(arr[3])) {
+                                reomvePrint = temp;
+                            }
                         }
+
                         try {
-                            for (drugDetails temp : listOfPrint) {
+                            for (drugDetails temp : listOfDrugDet) {
                                 if (temp.getdName().equals(arr[3])) {
                                     updatePrint.setNum(temp.getNum() + 1);
                                     updatePrint.setCost(temp.getCost() + Float.parseFloat(arr[4]));
@@ -82,12 +95,12 @@ public class PharmacyCounting {
                             System.out.println();
                         }
 
-                        listOfPrint.remove(reomvePrint);
-                        listOfPrint.add(updatePrint);
+                        listOfDrugDet.remove(reomvePrint);
+                        listOfDrugDet.add(updatePrint);
                     } else {
                         try {
                             drugDetails tempPrint = new drugDetails(arr[3], 1, Float.parseFloat(arr[4]));
-                            listOfPrint.add(tempPrint);
+                            listOfDrugDet.add(tempPrint);
                             names.add(arr[3]);
                         } catch (NumberFormatException ne) {
                             System.out.println(ne.getMessage());
@@ -96,8 +109,10 @@ public class PharmacyCounting {
 
             }
         } catch (FileNotFoundException fe) {
+
             System.out.println("File not found. Please enter correct path.");
             System.out.println(fe.getMessage());
+            throw new FileNotFoundException();
         } catch (Exception e) {
             System.out.print(e.getMessage());
         } finally {
@@ -109,6 +124,8 @@ public class PharmacyCounting {
             }
         }
 
-        return listOfPrint;
+        return listOfDrugDet;
     }
+
+
 }
