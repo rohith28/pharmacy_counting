@@ -1,5 +1,3 @@
-package insight;
-
 import java.io.*;
 import java.util.*;
 import java.io.IOException;

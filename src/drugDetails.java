@@ -1,5 +1,3 @@
-package insight;
-
 import java.util.Comparator;
 
 public class drugDetails {

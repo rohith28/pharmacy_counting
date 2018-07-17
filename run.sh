@@ -6,6 +6,6 @@
 #clear
 #java -jar src\com\insight\pharmacy\pharmacy_counting.jar input\itcont.txt output\top_cost_drug.txt
 cd src
-javac -d .  insight\PharmacyCounting.java
-javac -d . insight\drugDetails.java
-java insight.PharmacyCounting ../input/itcont.txt ../output/top_cost_drug.txt
+javac -d .  PharmacyCounting.java
+javac -d . drugDetails.java
+java PharmacyCounting ../input/itcont.txt ../output/top_cost_drug.txt
