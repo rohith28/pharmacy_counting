@@ -1,5 +1,3 @@
-import insight.PharmacyCounting;
-import insight.drugDetails;
 import org.junit.Assert;
 import org.junit.Test;
 

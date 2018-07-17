@@ -1,11 +1,10 @@
 # Table of Contents
 1. [Problem](README.md#problem)
 2. [Approach](README.md#Approach)
-3. [Instructions](README.md#instructions)
-4. [Output](README.md#output)
-5. [Tips on getting an interview](README.md#tips-on-getting-an-interview)
-6. [Instructions to submit your solution](README.md#instructions-to-submit-your-solution)
-7. [Questions?](README.md#questions?)
+3. [Assumptions](README.md#Assumptions)
+4. [Test Cases](README.md#Test Cases)
+5. [Instructions](README.md#Instructions)
+
 
 # Problem
 
@@ -25,7 +24,20 @@ In this Java project I have created two files : `PharmacyCounting.java` and `dru
 * To split the each line from input file into `ID, Last_Name, First_Name, Drug_Name, Drug_Cost` i used regular expressions instead of normal split becuase some of the drug names has comma in their drug names and prescriber names.
 
 # Assumptions :
-* The problem statement has no infomration about the printing format of the cost. 
-- For example 
+* The problem statement has no infomration about the printing format of the cost. So I made some assumptions like below: 
+    - If total cost is  100 then output will be 100
+    - If total is 100.2563 then output will be 100.25
 
+# Test Cases : 
+* This project result is tested with both the run_tests.sh and JUnit test cases.<br>
+    To run the JUnit cases, 
+    - First you need to add junit-4.10.jar file
+    - Open the test cases folder under the src folder.
+    - Then run the individual or all test cases.
+    
+# Instructions:
+* Install Java from the [official website](https://java.com/en/).
+* Make sure updated to install and set the environment  of JAVA compiler and interpreter.
+* Update the PATH variable in Environmental variables with the location of JDK and JRE
+* If Java and runtime installed correctly the execute `run.sh` file   
     
