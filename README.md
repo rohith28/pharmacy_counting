@@ -2,7 +2,7 @@
 1. [Problem](README.md#problem)
 2. [Approach](README.md#Approach)
 3. [Assumptions](README.md#Assumptions)
-4. [Test Cases](README.md#Test Cases)
+4. [Test Cases](README.md#TestCases)
 5. [Instructions](README.md#Instructions)
 
 
@@ -29,7 +29,7 @@ In this Java project I have created two files : `PharmacyCounting.java` and `dru
     - If total cost is  100 then output will be 100
     - If total is 100.2563 then output will be 100.25
 
-# Test Cases : 
+# TestCases
 * This project result is tested with both the run_tests.sh and JUnit test cases.<br>
     To run the JUnit cases, 
     - First you need to add junit-4.10.jar file
