@@ -1,5 +1,5 @@
-import com.insight.pharmacy.PharmacyCounting;
-import com.insight.pharmacy.drugDetails;
+import insight.PharmacyCounting;
+import insight.drugDetails;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PharamacyCountingTest {
+
+    // Test case
     @Test(expected = FileNotFoundException.class)
     public void readDataFromFileTest() throws Exception{
         String path = "input2.txt";
@@ -37,9 +39,6 @@ public class PharamacyCountingTest {
         File file = new File(path);
         Assert.assertTrue(file.exists());
         file.delete();
-
-
-
     }
 
 

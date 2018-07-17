@@ -1,4 +1,4 @@
-package com.insight.pharmacy;
+package insight;
 
 import java.io.*;
 import java.util.*;
