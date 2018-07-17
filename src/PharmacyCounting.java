@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
@@ -13,13 +15,23 @@ public class PharmacyCounting {
         List<drugDetails> listOfDrugDet = new ArrayList<>();
 
         String path = args[0];
-
+        // Checking 
         if(checkFileExist(path)){
+
             listOfDrugDet = readDataFromFile(path, listOfDrugDet);
+
             Collections.sort(listOfDrugDet, new SortBycost());
 
-            writeToFile(args[1],listOfDrugDet);
+
+            if(isValidPath(args[1])){
+                writeToFile(args[1],listOfDrugDet);
+            }else{
+                System.out.print("path not exist");
+            }
+
+
         }else{
+
             throw new FileNotFoundException("File not found in the given file path.");
         }
     }
@@ -27,6 +39,16 @@ public class PharmacyCounting {
     public static boolean checkFileExist(String path){
         boolean res = new File(path).exists();
         return res;
+    }
+
+    public static boolean isValidPath(String path) {
+        try {
+            Paths.get(path);
+
+        } catch (InvalidPathException | NullPointerException ex) {
+            return false;
+        }
+        return true;
     }
     public static void writeToFile(String path,List<drugDetails> listOfDrugDet){
         try {
@@ -46,6 +68,11 @@ public class PharmacyCounting {
         }
     }
 
+    /*
+    * Name of the Method : readDataFromFile
+    * Parameters : Path of the input file, List of drugDetails objects
+    *  This method reads the data from the file , parse the data and create the list of drugDetails object
+    * */
 
     public static List<drugDetails> readDataFromFile(String path, List<drugDetails> listOfDrugDet) throws IOException{
 
@@ -59,16 +86,15 @@ public class PharmacyCounting {
 
             sc = new Scanner(inputStream, "UTF-8");
             sc.nextLine();
+            int errorLine =0;
             while (sc.hasNextLine()) {
-
-                    String line = sc.nextLine();
+                String line = sc.nextLine();
+                if(!line.trim().isEmpty()){
                     String[] arr = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                     arr[3] = arr[3].replace("\"", "");
                     drugDetails reomvePrint = null;
                     if (names.contains(arr[3])) {
-
                         drugDetails updatePrint = new drugDetails(arr[3], 0, 0);
-                        Iterator<drugDetails> itr = listOfDrugDet.iterator();
 
                         for (drugDetails temp:listOfDrugDet) {
                             if (temp.getdName().equals(arr[3])) {
@@ -76,16 +102,15 @@ public class PharmacyCounting {
                             }
                         }
 
-                        try {
+                        try{
                             for (drugDetails temp : listOfDrugDet) {
                                 if (temp.getdName().equals(arr[3])) {
                                     updatePrint.setNum(temp.getNum() + 1);
                                     updatePrint.setCost(temp.getCost() + Double.parseDouble(arr[4]));
                                 }
-
                             }
                         } catch (NumberFormatException ne) {
-                            System.out.println();
+                                System.out.println();
                         }
 
                         listOfDrugDet.remove(reomvePrint);
@@ -99,8 +124,13 @@ public class PharmacyCounting {
                             System.out.println(ne.getMessage());
                         }
                     }
-
+                }else{
+                    errorLine++;
+                    System.out.print("Line is not present");
+                }
             }
+            System.out.println("Number of line empty are :"+errorLine);
+
         } catch (FileNotFoundException fe) {
 
             System.out.println("File not found. Please enter correct path.");
