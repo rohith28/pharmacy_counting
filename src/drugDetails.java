@@ -44,6 +44,12 @@ public class drugDetails {
         this.cost = cost;
     }
 }
+
+/*
+*  This comparator method compares two objects and sort them in the Descending order of the cost and if both cost are same then Name.
+*
+*
+* */
 class SortBycost implements Comparator<drugDetails> {
     public int compare(drugDetails a,drugDetails b){
         if(a.getCost() > b.getCost())

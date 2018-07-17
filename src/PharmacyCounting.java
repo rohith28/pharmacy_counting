@@ -15,14 +15,16 @@ public class PharmacyCounting {
         List<drugDetails> listOfDrugDet = new ArrayList<>();
 
         String path = args[0];
-        // Checking 
+        // Checking whether file exist or not
         if(checkFileExist(path)){
 
             listOfDrugDet = readDataFromFile(path, listOfDrugDet);
 
+            // Sorting the drugDetails objects based on Cost and Name (Descending order)
+            // SortByCost is implemented in drugDetails class
             Collections.sort(listOfDrugDet, new SortBycost());
 
-
+            // Checking whether the output path exist or not
             if(isValidPath(args[1])){
                 writeToFile(args[1],listOfDrugDet);
             }else{
@@ -36,10 +38,22 @@ public class PharmacyCounting {
         }
     }
 
+    /**
+     *  Name : checkFileExist
+     *  parameter : Input file path
+     *  returns : If file exist 'True' else 'False'
+     *
+     * */
     public static boolean checkFileExist(String path){
         boolean res = new File(path).exists();
         return res;
     }
+
+    /**
+     *  Name : isValidPath
+     *  Parameter : Path to the output file
+     *  Returns : boolean. If path is exist then 'True' else 'False'
+     * */
 
     public static boolean isValidPath(String path) {
         try {
@@ -50,6 +64,12 @@ public class PharmacyCounting {
         }
         return true;
     }
+
+    /**
+     * Name : writeToFile
+     * parameters : output file path and List of drugDetails object
+     * This method will return all the drugs into given output file.
+     * */
     public static void writeToFile(String path,List<drugDetails> listOfDrugDet){
         try {
             FileWriter fileWriter = new FileWriter(path);
