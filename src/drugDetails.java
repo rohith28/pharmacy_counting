@@ -3,9 +3,9 @@ import java.util.Comparator;
 public class drugDetails {
     private  String dName;
     private int num;
-    private float cost;
+    private double cost;
 
-    public drugDetails(String dName, int num, float cost) {
+    public drugDetails(String dName, int num, double cost) {
         this.dName = dName;
         this.num = num;
         this.cost = cost;
@@ -36,11 +36,11 @@ public class drugDetails {
         this.num = num;
     }
 
-    public float getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 }
@@ -51,7 +51,7 @@ class SortBycost implements Comparator<drugDetails> {
         else if(b.getCost() > a.getCost()){
             return 1;
         }else{
-            return a.getdName().compareTo(b.getdName());
+            return b.getdName().compareTo(a.getdName());
         }
     }
 }

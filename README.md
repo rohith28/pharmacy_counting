@@ -14,17 +14,18 @@ Disclosure: The projects that Insight Data Engineering Fellows work on during th
 
 # Approach
 
-* Created a class which has "Drug Name","Number of prescribers","Total cost". It will be easy to hold these data as object rather using treemap or hashmap. By using objects it will be very easy to add update or remove the objects.
+* Created a class which has "Drug Name","Number of prescribes","Total cost". It will be easy to hold these data as object rather using treemap or hashmap. By using objects it will be very easy to add update or remove the objects.
 * A Set is maintained to check the drug names.
     *  If Drug Name is new(not in the set) then it will create drugDetails object and add it to the List.
     *  else drugDetails object is updated.
+* For sorting the output based on Cost and Name. I implemented a comparator class called `SortByCost.` It sorts descending order of the cost and if cost are same then descending order of the Name.
 
 In this Java project I have created two files : `PharmacyCounting.java` and `drugDetails.java`. I used FileInputStream so it can read large files line by line using less space. 
 
 * To split the each line from input file into `ID, Last_Name, First_Name, Drug_Name, Drug_Cost` i used regular expressions instead of normal split becuase some of the drug names has comma in their drug names and prescriber names.
 
 # Assumptions :
-* The problem statement has no infomration about the printing format of the cost. So I made some assumptions like below: 
+* The problem statement has no information about the printing format of the cost. So I made some assumptions like below: 
     - If total cost is  100 then output will be 100
     - If total is 100.2563 then output will be 100.25
 

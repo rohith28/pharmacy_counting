@@ -1,4 +1,6 @@
 import java.io.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,10 +33,10 @@ public class PharmacyCounting {
             FileWriter fileWriter = new FileWriter(path);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.println("drug_name,num_prescriber,total_cost");
-
+            NumberFormat nf = new DecimalFormat("##.##");
 
             for (drugDetails tempList : listOfDrugDet) {
-                String str = tempList.getdName() + "," + tempList.getNum() + "," + (int) tempList.getCost();
+                String str = tempList.getdName() + "," + tempList.getNum() + "," +  nf.format(tempList.getCost());
                 printWriter.println(str);
 
             }
@@ -61,19 +63,12 @@ public class PharmacyCounting {
 
                     String line = sc.nextLine();
                     String[] arr = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                 //   System.out.println(arr[3]);
-                   // arr[3] = arr[3].replace("\"", "");
+                    arr[3] = arr[3].replace("\"", "");
                     drugDetails reomvePrint = null;
                     if (names.contains(arr[3])) {
 
                         drugDetails updatePrint = new drugDetails(arr[3], 0, 0);
                         Iterator<drugDetails> itr = listOfDrugDet.iterator();
-                        /*while (itr.hasNext()) {
-                            drugDetails temp = itr.next();
-                            if (temp.getdName().equals(arr[3])) {
-                                reomvePrint = temp;
-                            }
-                        }*/
 
                         for (drugDetails temp:listOfDrugDet) {
                             if (temp.getdName().equals(arr[3])) {
@@ -85,7 +80,7 @@ public class PharmacyCounting {
                             for (drugDetails temp : listOfDrugDet) {
                                 if (temp.getdName().equals(arr[3])) {
                                     updatePrint.setNum(temp.getNum() + 1);
-                                    updatePrint.setCost(temp.getCost() + Float.parseFloat(arr[4]));
+                                    updatePrint.setCost(temp.getCost() + Double.parseDouble(arr[4]));
                                 }
 
                             }
@@ -97,7 +92,7 @@ public class PharmacyCounting {
                         listOfDrugDet.add(updatePrint);
                     } else {
                         try {
-                            drugDetails tempPrint = new drugDetails(arr[3], 1, Float.parseFloat(arr[4]));
+                            drugDetails tempPrint = new drugDetails(arr[3], 1, Double.parseDouble(arr[4]));
                             listOfDrugDet.add(tempPrint);
                             names.add(arr[3]);
                         } catch (NumberFormatException ne) {
