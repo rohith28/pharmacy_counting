@@ -110,6 +110,9 @@ public class PharmacyCounting {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 if(!line.trim().isEmpty()){
+                    // In some cases drug name or name of prescriber has commas in it. 
+                    // To split given line into 5 we need to use following regualr expression.
+                    // Ref: https://stackoverflow.com/a/1757107
                     String[] arr = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                     arr[3] = arr[3].replace("\"", "");
                     drugDetails reomvePrint = null;
