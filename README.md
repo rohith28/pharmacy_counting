@@ -33,9 +33,8 @@ In this Java project I have created two files : `PharmacyCounting.java` and `dru
 # RunInstructions:
 To run the package with test data:
 
-`root~$ chmod +x run.sh
-
-root~$ ./run.sh`
+`root~$ chmod +x run.sh`<br>
+`root~$ ./run.sh`
 
 
 # TestCases
