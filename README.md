@@ -2,8 +2,9 @@
 1. [Problem](README.md#problem)
 2. [Approach](README.md#Approach)
 3. [Assumptions](README.md#Assumptions)
-4. [Test Cases](README.md#TestCases)
-5. [Instructions](README.md#Instructions)
+4. [Run Instructions](README.md#RunInstructions)
+5. [Test Cases](README.md#TestCases)
+6. [Instructions](README.md#Instructions)
 
 
 # Problem
@@ -28,6 +29,13 @@ In this Java project I have created two files : `PharmacyCounting.java` and `dru
 * The problem statement has no information about the printing format of the cost. So I made some assumptions like below: 
     - If total cost is  100 then output will be 100
     - If total is 100.2563 then output will be 100.25
+
+# RunInstructions:
+To run the package with test data:
+
+`root~$ chmod +x run.sh
+root~$ ./run.sh`
+
 
 # TestCases
 * This project result is tested with both the run_tests.sh and JUnit test cases.<br>
